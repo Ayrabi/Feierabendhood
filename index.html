@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feierabendhood</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="scripts.js"></script>
+</head>
+<body>
+  <div class="intro-screen" id="intro">
+    <img src="intro.gif" alt="Intro Animation" />
+  </div>
+
+  <div class="login-container" id="login-container">
+    <img src="logo.png" alt="Logo" class="logo" />
+    <h1>Herzlich Willkommen</h1>
+    <input type="text" id="username" placeholder="Benutzername" />
+    <input type="password" id="password" placeholder="Passwort" />
+    <button onclick="login()">Einloggen</button>
+    <p id="error-message"></p>
+  </div>
+
+  <div class="profile hidden" id="profile">
+    <div class="top-bar">
+      <img src="logo.png" alt="Logo" class="small-logo" />
+      <button onclick="logout()">Logout</button>
+    </div>
+    <div class="profile-info">
+      <img src="default-profile.png" alt="Profilbild" id="profile-picture" />
+      <input type="file" id="upload-picture" onchange="changeProfilePicture()" />
+      <textarea id="profile-text" placeholder="Dein Text hier..."></textarea>
+      <button onclick="saveProfile()">Speichern</button>
+    </div>
+    <div class="profile-nav" id="profile-nav"></div>
+  </div>
+</body>
+</html>
+    
