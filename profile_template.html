@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/profile.js" defer></script>
+</head>
+<body>
+    <header>
+        <img src="assets/images/logo.png" alt="Logo" class="logo">
+        <nav>
+            <button onclick="openSettings()">⚙️</button>
+            <div id="otherProfiles"></div>
+        </nav>
+    </header>
+    <main>
+        <div class="profile-frame">
+            <img id="profileImage" src="assets/images/default-profile.png" alt="Profilbild" />
+            <h2 id="profileName">[Name]</h2>
+            <textarea id="profileText">[Eigener Text]</textarea>
+        </div>
+    </main>
+    <div id="settingsPanel" class="hidden">
+        <h3>Einstellungen</h3>
+        <input type="file" id="uploadImage" />
+        <input type="password" placeholder="Neues Passwort" id="newPassword1">
+        <input type="password" placeholder="Passwort bestätigen" id="newPassword2">
+        <button onclick="saveSettings()">Speichern</button>
+    </div>
+</body>
+</html>

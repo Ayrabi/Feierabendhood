@@ -1,38 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Feierabend-Hood</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>Feierabend-Hood Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/login.js" defer></script>
 </head>
 <body>
-  <!-- Intro-Animation -->
-  <div id="intro" class="intro-overlay">
-    <img src="intro.gif" alt="Intro" />
-  </div>
-
-  <!-- Hauptinhalt -->
-  <div id="main-content" class="hidden">
-    <header>
-      <img src="logo.png" alt="Logo" class="logo" />
-      <h1>Willkommen in der Feierabend-Hood</h1>
-    </header>
-
-    <div class="login-form">
-      <h2>Login</h2>
-      <form id="loginForm">
-        <label for="username">Benutzername:</label>
-        <input type="text" id="username" name="username" required />
-        
-        <label for="password">Passwort:</label>
-        <input type="password" id="password" name="password" required />
-
-        <button type="submit">Einloggen</button>
-      </form>
+    <div class="login-container">
+        <img src="assets/images/logo.png" alt="Logo" class="logo">
+        <h1>Herzlich Willkommen</h1>
+        <input type="text" placeholder="Nutzername" id="username" />
+        <input type="password" placeholder="Passwort" id="password" />
+        <button onclick="login()">Einloggen</button>
     </div>
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
