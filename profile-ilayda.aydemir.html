@@ -3,65 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>İlayda Aydemir – FeierabendHood</title>
+  <title>İlayda Aydemir – Feierabend-Hood</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
 </head>
-<body class="profile-page">
-  <div class="background-decor">
-    <!-- Blumenmuster ggf. per CSS-Hintergrundbild -->
+<body>
+  <div class="profile-container">
+    <h2>İlayda Aydemir</h2>
+    <p><strong>Mitgliedsnummer:</strong> 002</p>
+    <p><strong>Funktion:</strong> Ko-Kuratorin</p>
+    <p><strong>Status:</strong> Feierabend-Rookie</p>
+    <p><strong>Geburtsdatum:</strong> 14.10.2000</p>
+    <p><strong>Rechte:</strong> Darf mit Ankündigung im Vorab eine Begleitung zu den Treffen mitbringen.</p>
+
+    <img src="default-profile.png" alt="Profilbild" class="profile-picture" id="profilePic" />
+
+    <textarea id="userText" placeholder="Dein persönlicher Text hier ..."></textarea>
+
+    <!-- Einstellungen -->
+    <div style="margin-top: 2em;">
+      <h3>⚙️ Einstellungen</h3>
+      <label for="newPassword1">Neues Passwort:</label>
+      <input type="password" id="newPassword1" />
+      <label for="newPassword2">Passwort bestätigen:</label>
+      <input type="password" id="newPassword2" />
+      <button class="save-button" onclick="changePassword()">Passwort ändern</button><br /><br />
+      <input type="file" id="uploadPic" accept="image/*" />
+      <button class="save-button" onclick="saveProfile()">Speichern</button>
+      <p id="saveMessage" style="color:lime;"></p>
+    </div>
+
+    <!-- Weitere Mitglieder -->
+    <hr />
+    <h4>👥 Weitere Mitglieder</h4>
+    <ul>
+      <li><a href="profile-rabia.aydemir.html">Rabia Aydemir</a></li>
+      <li><a href="profile-zehra.dogan.html">Zehra Doğan</a></li>
+      <li><a href="profile-elif.cigerli.html">Elif Çiğerli</a></li>
+      <li><a href="profile-lea.peitan.html">Lea Peitan</a></li>
+      <li><a href="profile-elvan.alanbay.html">Elvan Alanbay</a></li>
+    </ul>
   </div>
 
-  <header>
-    <img src="logo.png" alt="Logo" class="logo" />
-    <h1>Profil: İlayda Aydemir</h1>
-  </header>
+  <script>
+    const currentUser = "ilayda.aydemir";
+    const profilePic = document.getElementById("profilePic");
+    const userText = document.getElementById("userText");
 
-  <main>
-    <section class="profile-info">
-      <img src="default-profile.png" alt="Profilbild" id="profile-pic" />
-      <p><strong>Mitgliedsnummer:</strong> 002</p>
-      <p><strong>Funktion:</strong> Ko-Kuratorin</p>
-      <p><strong>Status:</strong> Feierabend-Rookie</p>
-      <p><strong>Geburtsdatum:</strong> 14.10.2000</p>
-      <p><strong>Rechte:</strong> Darf mit Ankündigung im Vorab eine Begleitung zu den Treffen mitbringen.</p>
-    </section>
+    window.onload = () => {
+      const savedText = localStorage.getItem(currentUser + "_text");
+      if (savedText) userText.value = savedText;
 
-    <section class="editable-section">
-      <textarea id="user-text">Mein Feierabend-Rookie Text ...</textarea>
-      <button onclick="saveUserText()">💾 Speichern</button>
-    </section>
+      const savedImg = localStorage.getItem(currentUser + "_img");
+      if (savedImg) profilePic.src = savedImg;
+    };
 
-    <section class="settings-section">
-      <h2>⚙️ Einstellungen</h2>
-      <div>
-        <label for="new-password">Neues Passwort:</label>
-        <input type="password" id="new-password" />
-      </div>
-      <div>
-        <label for="confirm-password">Passwort wiederholen:</label>
-        <input type="password" id="confirm-password" />
-      </div>
-      <button onclick="changePassword()">Passwort ändern</button>
+    function saveProfile() {
+      localStorage.setItem(currentUser + "_text", userText.value);
+      const file = document.getElementById("uploadPic").files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          localStorage.setItem(currentUser + "_img", reader.result);
+          profilePic.src = reader.result;
+          document.getElementById("saveMessage").innerText = "Gespeichert!";
+        };
+        reader.readAsDataURL(file);
+      } else {
+        document.getElementById("saveMessage").innerText = "Gespeichert!";
+      }
+    }
 
-      <div>
-        <label for="upload-pic">Profilbild ändern:</label>
-        <input type="file" id="upload-pic" accept="image/*" />
-        <button onclick="changeProfilePic()">Bild speichern</button>
-      </div>
-    </section>
-
-    <section class="other-profiles">
-      <h2>Weitere Profile</h2>
-      <ul>
-        <li><a href="profile-rabia.aydemir.html">Rabia Aydemir</a></li>
-        <li><strong>İlayda Aydemir (du bist hier)</strong></li>
-        <li><a href="profile-zehra.dogan.html">Zehra Doğan</a></li>
-        <li><a href="profile-elif.cigerli.html">Elif Çiğerli</a></li>
-        <li><a href="profile-lea.peitan.html">Lea Peitan</a></li>
-        <li><a href="profile-elvan.alanbay.html">Elvan Alanbay</a></li>
-      </ul>
-    </section>
-  </main>
+    function changePassword() {
+      const p1 = document.getElementById("newPassword1").value;
+      const p2 = document.getElementById("newPassword2").value;
+      if (p1 !== p2 || p1.length < 6) {
+        alert("❌ Passwort ungültig oder stimmt nicht überein.");
+        return;
+      }
+      localStorage.setItem(currentUser + "_pass", p1);
+      alert("✅ Passwort wurde geändert.");
+    }
+  </script>
 </body>
 </html>
