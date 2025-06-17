@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FeierabendHood Login</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>FeierabendHood – Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="login.js"></script>
 </head>
-<body>
-  <div class="login-container" id="login-container">
-    <h1>🔐 FeierabendHood</h1>
-    <input type="text" id="username" placeholder="Benutzername (z. B. rabia.aydemir)" />
-    <input type="password" id="password" placeholder="Passwort" />
-    <button onclick="handleLogin()">Einloggen</button>
-    <p id="login-error" class="error"></p>
-  </div>
+<body class="login-page">
+  <header>
+    <h1>🔐 Willkommen bei der FeierabendHood</h1>
+  </header>
 
-  <div class="intro" id="intro" style="display:none;">
-    <video id="intro-video" autoplay muted>
-      <source src="video.mov" type="video/mp4">
-      Dein Browser unterstützt das Video nicht.
-    </video>
-  </div>
+  <main>
+    <section class="login-box">
+      <label for="username">Benutzername</label>
+      <input type="text" id="username" placeholder="vorname.nachname" />
 
-  <script src="script.js"></script>
+      <label for="password">Passwort</label>
+      <input type="password" id="password" placeholder="Passwort eingeben" />
+
+      <button onclick="handleLogin()">Login</button>
+
+      <p id="error-message" class="error"></p>
+    </section>
+  </main>
 </body>
 </html>
