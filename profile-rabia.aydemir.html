@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profil – Rabia Aydemir</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body class="profile-page">
+
+  <!-- Logo -->
+  <div class="logo-container">
+    <img src="logo.png" alt="Logo" class="logo" />
+    <h1>Herzlich Willkommen</h1>
+  </div>
+
+  <!-- Blumenrahmen -->
+  <div class="frame">
+    <!-- Profilbereich -->
+    <div class="profile-card">
+      <img src="default-profile.png" alt="Profilbild" class="profile-picture" id="profileImageRabia"/>
+      <h2>Rabia Aydemir</h2>
+      <p>Mitgliedsnummer: 001</p>
+      <p>Funktion: Kuratorin</p>
+      <p>Status: Feierabend-Rookie</p>
+      <p>Geburtsdatum: 14.10.2000</p>
+      <p>Rechte: Organisatorisches und gruppenbetreffend. Darf mit Ankündigung im Vorab eine Begleitung zu den Treffen mitbringen.</p>
+
+      <!-- Bearbeitbares Textfeld -->
+      <textarea id="userTextRabia" placeholder="Was möchtest du teilen?"></textarea>
+
+      <!-- Einstellungen -->
+      <div class="settings">
+        <h3>⚙️ Einstellungen</h3>
+
+        <label>Neues Profilbild auswählen:
+          <input type="file" id="uploadProfileRabia" accept="image/*">
+        </label>
+
+        <label>Passwort ändern:
+          <input type="password" id="newPw1Rabia" placeholder="Neues Passwort">
+          <input type="password" id="newPw2Rabia" placeholder="Wiederholen">
+        </label>
+
+        <button onclick="saveChanges('Rabia')">Speichern</button>
+        <p id="saveMessageRabia"></p>
+
+        <!-- Admin-Panel -->
+        <div class="admin-panel" id="adminRabia">
+          <h3>👑 Admin-Bereich</h3>
+          <button onclick="openAdminPanel()">Andere Profile verwalten</button>
+          <button onclick="openCreateUser()">+ Neues Mitglied erstellen</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weitere Profile -->
+    <div class="profile-links">
+      <h4>Weitere Profile:</h4>
+      <ul>
+        <li><a href="profile-ilayda.aydemir.html">İlayda Aydemir</a></li>
+        <li><a href="profile-zehra.dogan.html">Zehra Doğan</a></li>
+        <li><a href="profile-elif.cigerli.html">Elif Çiğerli</a></li>
+        <li><a href="profile-lea.peitan.html">Lea Peitan</a></li>
+        <li><a href="profile-elvan.alanbay.html">Elvan Alanbay</a></li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>
