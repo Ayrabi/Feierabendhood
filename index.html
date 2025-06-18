@@ -3,28 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profile löschen</title>
+  <title>Feierabendhood</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container">
-    <h2>Profil löschen</h2>
-    <input type="text" id="profileName" placeholder="Name des Profils" />
-    <button onclick="deleteProfile()">Löschen</button>
-    <p id="deleteFeedback"></p>
+  <div class="logo-container">
+    <img src="bilder/logo.png" alt="Logo" class="logo" />
+  </div>
+
+  <video autoplay muted class="intro-video">
+    <source src="videos/intro.mov" type="video/mp4" />
+    Dein Browser unterstützt kein Video.
+  </video>
+
+  <div class="login-container">
+    <h2>Login</h2>
+    <select id="username">
+      <option value="" disabled selected>Mitgliedsnummer auswählen</option>
+      <option value="001">001</option>
+      <option value="002">002</option>
+      <!-- Mehr Mitglieder hier -->
+    </select>
+    <input type="password" id="password" placeholder="Passwort" />
+    <button onclick="login()">Einloggen</button>
+    <p id="login-error" style="color: red;"></p>
   </div>
 
   <script>
-    function deleteProfile() {
-      const name = document.getElementById("profileName").value.trim();
-      if (!name) {
-        document.getElementById("deleteFeedback").textContent = "Bitte einen Namen eingeben.";
-        return;
-      }
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value.trim();
 
-      // Nur Beispielhaft – hier müsstest du z. B. eine Datei oder JSON-Eintrag löschen
-      console.log("Gelöscht:", name);
-      document.getElementById("deleteFeedback").textContent = `Profil "${name}" wurde gelöscht (nur simuliert).`;
+      if (
+        (user === "001" && pass === "feierabend123") ||
+        (user === "002" && pass === "beispiel456")
+      ) {
+        localStorage.setItem("loggedInUser", user);
+
+        if (user === "001") window.location.href = "profile-rabia.html";
+        else if (user === "002") window.location.href = "profile-ali.html";
+        else window.location.href = "profile-default.html";
+      } else {
+        document.getElementById("login-error").textContent = "Falsche Mitgliedsnummer oder Passwort";
+      }
     }
   </script>
 </body>
