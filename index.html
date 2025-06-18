@@ -1,6 +1,31 @@
-<div id="login-container">
-  <label for="password">Passwort</label>
-  <input type="password" id="password" />
-  <button id="loginButton">Login</button>
-  <div id="login-message"></div>
-</div>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feierabendhood Login</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="logo-container">
+    <img src="bilder/logo.png" alt="Logo" class="logo" />
+  </div>
+
+  <div id="login-container">
+    <label for="username">Wähle dein Profil:</label>
+    <select id="username">
+      <option value="" disabled selected>– bitte auswählen –</option>
+      <option value="rabia">Rabia Aydemir</option>
+      <option value="ali">Ali Test</option>
+    </select>
+
+    <label for="password">Passwort:</label>
+    <input type="password" id="password" />
+    <button id="loginButton">Login</button>
+
+    <div id="login-message"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
