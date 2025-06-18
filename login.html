@@ -1,180 +1,117 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Feierabendhood Login</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      background-color: #111;
-      color: #d9903f;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .login-container {
-      background: #222;
-      padding: 2rem;
-      border-radius: 10px;
-      width: 320px;
-      box-shadow: 0 0 10px #d9903f;
-      text-align: center;
-    }
-    h1 {
-      margin-bottom: 1rem;
-    }
-    input[type="password"] {
-      width: 100%;
-      padding: 0.5rem;
-      margin: 0.5rem 0 1rem 0;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-    label {
-      font-size: 0.9rem;
-      display: block;
-      margin-bottom: 0.2rem;
-      text-align: left;
-    }
-    .toggle-password {
-      cursor: pointer;
-      color: #d9903f;
-      font-size: 0.9rem;
-      user-select: none;
-      margin-bottom: 1rem;
-    }
-    button {
-      background-color: #d9903f;
-      border: none;
-      padding: 0.7rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      color: #111;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #b07226;
-    }
-    .message {
-      margin-top: 1rem;
-      min-height: 1.2rem;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Feierabendhood Login</title>
+<style>
+  body {
+    margin: 0; background: #111; color: #d9903f; font-family: 'Comic Sans MS', cursive, sans-serif;
+    display: flex; flex-direction: column; align-items: center; justify-content: start; min-height: 100vh;
+  }
+  #logo {
+    margin: 20px 0 10px;
+    max-width: 300px;
+    width: 80vw;
+  }
+  #login-container {
+    background: #222;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #d9903f88;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 320px;
+  }
+  #login-container h2 {
+    margin-bottom: 20px;
+  }
+  input[type="password"], input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #d9903f;
+    border-radius: 6px;
+    background: #111;
+    color: #d9903f;
+    margin-bottom: 10px;
+  }
+  label.show-password {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    color: #d9903fcc;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+  }
+  button {
+    background: #d9903f;
+    border: none;
+    border-radius: 6px;
+    color: #111;
+    padding: 10px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    transition: background 0.3s;
+  }
+  button:hover {
+    background: #b67c2b;
+  }
+  #message {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    height: 1.2em;
+  }
+</style>
 </head>
 <body>
-  <div class="login-container">
-    <h1>Feierabendhood Login</h1>
 
-    <div id="create-password-section" style="display:none;">
-      <label for="new-password">Neues Passwort erstellen</label>
-      <input type="password" id="new-password" autocomplete="new-password" />
-      <label for="confirm-password">Passwort bestätigen</label>
-      <input type="password" id="confirm-password" autocomplete="new-password" />
-      <div class="toggle-password" id="toggleCreatePass">Passwort anzeigen</div>
-      <button id="save-password-btn">Passwort speichern</button>
-    </div>
+<img id="logo" src="logo.png" alt="Feierabendhood Logo" />
 
-    <div id="login-section">
-      <label for="login-password">Passwort eingeben</label>
-      <input type="password" id="login-password" autocomplete="current-password" />
-      <div class="toggle-password" id="toggleLoginPass">Passwort anzeigen</div>
-      <button id="login-btn">Einloggen</button>
-    </div>
+<div id="login-container">
+  <h2>Login</h2>
+  <input id="password" type="password" placeholder="Passwort eingeben" autocomplete="off" />
+  <label class="show-password"><input type="checkbox" id="togglePassword" /> Passwort anzeigen</label>
+  <button id="loginBtn">Anmelden</button>
+  <div id="message"></div>
+</div>
 
-    <div class="message" id="message"></div>
-  </div>
+<script>
+  const loginBtn = document.getElementById('loginBtn');
+  const passwordInput = document.getElementById('password');
+  const togglePassword = document.getElementById('togglePassword');
+  const messageDiv = document.getElementById('message');
 
-  <script>
-    const ADMIN_PASSWORD_KEY = "feierabendhood_admin_password";
-    const createSection = document.getElementById('create-password-section');
-    const loginSection = document.getElementById('login-section');
-    const messageEl = document.getElementById('message');
+  // Passwort anzeigen / verstecken
+  togglePassword.addEventListener('change', () => {
+    passwordInput.type = togglePassword.checked ? 'text' : 'password';
+  });
 
-    // Check if password is set in localStorage
-    const savedPassword = localStorage.getItem(ADMIN_PASSWORD_KEY);
-
-    // Wenn kein Passwort, zeige Passwort erstellen
-    if (!savedPassword) {
-      createSection.style.display = "block";
-      loginSection.style.display = "none";
+  loginBtn.addEventListener('click', () => {
+    const pw = passwordInput.value.trim();
+    if (!pw) {
+      messageDiv.textContent = "Bitte Passwort eingeben!";
+      return;
     }
 
-    // Passwort anzeigen Toggle (beide Felder)
-    function setupTogglePassword(toggleId, inputIds) {
-      const toggle = document.getElementById(toggleId);
-      toggle.addEventListener('click', () => {
-        inputIds.forEach(id => {
-          const input = document.getElementById(id);
-          if (input.type === "password") {
-            input.type = "text";
-            toggle.textContent = "Passwort verbergen";
-          } else {
-            input.type = "password";
-            toggle.textContent = "Passwort anzeigen";
-          }
-        });
-      });
-    }
+    // Speichern ins localStorage (für Demo-Zwecke)
+    localStorage.setItem('feierabend_password', pw);
+    messageDiv.style.color = '#6fba00';
+    messageDiv.textContent = 'Passwort erfolgreich gespeichert!';
+    passwordInput.value = '';
 
-    setupTogglePassword('toggleCreatePass', ['new-password', 'confirm-password']);
-    setupTogglePassword('toggleLoginPass', ['login-password']);
+    // Hier kannst du weiterleiten oder Profilseite laden
+    // z.B. window.location.href = 'profil.html';
+  });
 
-    // Passwort speichern
-    document.getElementById('save-password-btn').addEventListener('click', () => {
-      const newPass = document.getElementById('new-password').value.trim();
-      const confirmPass = document.getElementById('confirm-password').value.trim();
+  // Falls du beim Laden das Passwort anzeigen willst, kann man das hier holen:
+  // const savedPw = localStorage.getItem('feierabend_password');
+  // if(savedPw) passwordInput.value = savedPw;
+</script>
 
-      if (!newPass || !confirmPass) {
-        messageEl.textContent = "Bitte beide Passwörter eingeben.";
-        return;
-      }
-      if (newPass !== confirmPass) {
-        messageEl.textContent = "Passwörter stimmen nicht überein.";
-        return;
-      }
-      // Passwort speichern (lokal, unsicher!)
-      localStorage.setItem(ADMIN_PASSWORD_KEY, newPass);
-      messageEl.style.color = "#d9903f";
-      messageEl.textContent = "Passwort erfolgreich gespeichert! Bitte jetzt einloggen.";
-
-      // Zeige Login und verstecke Passwort erstellen
-      createSection.style.display = "none";
-      loginSection.style.display = "block";
-
-      // Leere Felder
-      document.getElementById('new-password').value = "";
-      document.getElementById('confirm-password').value = "";
-    });
-
-    // Login Button
-    document.getElementById('login-btn').addEventListener('click', () => {
-      const enteredPass = document.getElementById('login-password').value.trim();
-      if (!enteredPass) {
-        messageEl.textContent = "Bitte Passwort eingeben.";
-        return;
-      }
-      const storedPass = localStorage.getItem(ADMIN_PASSWORD_KEY);
-      if (enteredPass === storedPass) {
-        messageEl.style.color = "#d9903f";
-        messageEl.textContent = "Login erfolgreich! Du wirst weitergeleitet...";
-        // Weiterleitung zur Profilseite (hier anpassen, falls andere URL)
-        setTimeout(() => {
-          window.location.href = "profile.html"; 
-        }, 1500);
-      } else {
-        messageEl.style.color = "red";
-        messageEl.textContent = "Falsches Passwort.";
-      }
-    });
-  </script>
 </body>
 </html>
