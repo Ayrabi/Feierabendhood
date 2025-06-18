@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile löschen</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Profil löschen</h2>
+    <input type="text" id="profileName" placeholder="Name des Profils" />
+    <button onclick="deleteProfile()">Löschen</button>
+    <p id="deleteFeedback"></p>
+  </div>
+
+  <script>
+    function deleteProfile() {
+      const name = document.getElementById("profileName").value.trim();
+      if (!name) {
+        document.getElementById("deleteFeedback").textContent = "Bitte einen Namen eingeben.";
+        return;
+      }
+
+      // Nur Beispielhaft – hier müsstest du z. B. eine Datei oder JSON-Eintrag löschen
+      console.log("Gelöscht:", name);
+      document.getElementById("deleteFeedback").textContent = `Profil "${name}" wurde gelöscht (nur simuliert).`;
+    }
+  </script>
+</body>
+</html>
