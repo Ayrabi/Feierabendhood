@@ -16,8 +16,11 @@
     <section class="login-box">
       <label for="username">Benutzername</label>
       <input type="text" id="username" placeholder="vorname.nachname" />
-
-      <label for="password">Passwort</label>
+<label for="password">Passwort</label>
+<div class="password-wrapper">
+  <input type="password" id="password" placeholder="Passwort eingeben" />
+  <span class="toggle-password" onclick="togglePassword()">👁️</span>
+</div>
       <input type="password" id="password" placeholder="Passwort eingeben" />
 
       <button onclick="handleLogin()">Login</button>
