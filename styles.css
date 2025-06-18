@@ -138,3 +138,63 @@ textarea {
 .save-button:hover {
   background-color: #d4af37;
 }
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+body.login-page {
+  margin: 0;
+  padding: 0;
+  font-family: 'Comic Neue', cursive;
+  background-color: #1f1f1f;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Chamomile_%28Matricaria_recutita%29_flowers_closeup.jpg/1920px-Chamomile_%28Matricaria_recutita%29_flowers_closeup.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  max-width: 350px;
+  width: 100%;
+  text-align: center;
+}
+
+.login-box label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.login-box button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-box button:hover {
+  background-color: #e6b800;
+}
+
+.error {
+  color: red;
+  margin-top: 1rem;
+}
