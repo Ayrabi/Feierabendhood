@@ -1,117 +1,33 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Feierabendhood Login</title>
-<style>
-  body {
-    margin: 0; background: #111; color: #d9903f; font-family: 'Comic Sans MS', cursive, sans-serif;
-    display: flex; flex-direction: column; align-items: center; justify-content: start; min-height: 100vh;
-  }
-  #logo {
-    margin: 20px 0 10px;
-    max-width: 300px;
-    width: 80vw;
-  }
-  #login-container {
-    background: #222;
-    padding: 25px 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px #d9903f88;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 320px;
-  }
-  #login-container h2 {
-    margin-bottom: 20px;
-  }
-  input[type="password"], input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #d9903f;
-    border-radius: 6px;
-    background: #111;
-    color: #d9903f;
-    margin-bottom: 10px;
-  }
-  label.show-password {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-    color: #d9903fcc;
-    margin-bottom: 15px;
-    font-size: 0.9rem;
-  }
-  button {
-    background: #d9903f;
-    border: none;
-    border-radius: 6px;
-    color: #111;
-    padding: 10px 15px;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
-    font-size: 1rem;
-    transition: background 0.3s;
-  }
-  button:hover {
-    background: #b67c2b;
-  }
-  #message {
-    margin-top: 12px;
-    font-size: 0.9rem;
-    height: 1.2em;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – Feierabendhood</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="login-container">
+    <img src="bilder/logo.png" alt="Logo" class="logo" />
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Benutzername" />
+    <input type="password" id="password" placeholder="Passwort" />
+    <button onclick="login()">Einloggen</button>
+    <p id="login-error" style="color: red;"></p>
+  </div>
 
-<img id="logo" src="logo.png" alt="Feierabendhood Logo" />
+  <script>
+    function login() {
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
 
-<div id="login-container">
-  <h2>Login</h2>
-  <input id="password" type="password" placeholder="Passwort eingeben" autocomplete="off" />
-  <label class="show-password"><input type="checkbox" id="togglePassword" /> Passwort anzeigen</label>
-  <button id="loginBtn">Anmelden</button>
-  <div id="message"></div>
-</div>
-
-<script>
-  const loginBtn = document.getElementById('loginBtn');
-  const passwordInput = document.getElementById('password');
-  const togglePassword = document.getElementById('togglePassword');
-  const messageDiv = document.getElementById('message');
-
-  // Passwort anzeigen / verstecken
-  togglePassword.addEventListener('change', () => {
-    passwordInput.type = togglePassword.checked ? 'text' : 'password';
-  });
-
-  loginBtn.addEventListener('click', () => {
-    const pw = passwordInput.value.trim();
-    if (!pw) {
-      messageDiv.textContent = "Bitte Passwort eingeben!";
-      return;
+      if (user === "Rabia" && pass === "feierabend123") {
+        localStorage.setItem("loggedInUser", "Rabia");
+        window.location.href = "profile-rabia.html";
+      } else {
+        document.getElementById("login-error").textContent = "Falscher Benutzername oder Passwort";
+      }
     }
-
-    // Speichern ins localStorage (für Demo-Zwecke)
-    localStorage.setItem('feierabend_password', pw);
-    messageDiv.style.color = '#6fba00';
-    messageDiv.textContent = 'Passwort erfolgreich gespeichert!';
-    passwordInput.value = '';
-
-    // Hier kannst du weiterleiten oder Profilseite laden
-    // z.B. window.location.href = 'profil.html';
-  });
-
-  // Falls du beim Laden das Passwort anzeigen willst, kann man das hier holen:
-  // const savedPw = localStorage.getItem('feierabend_password');
-  // if(savedPw) passwordInput.value = savedPw;
-</script>
-
+  </script>
 </body>
 </html>
