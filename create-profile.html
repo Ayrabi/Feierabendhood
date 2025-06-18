@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neues Profil erstellen</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Profil erstellen</h2>
+    <form onsubmit="createProfile(); return false;">
+      <input type="text" id="name" placeholder="Name" required />
+      <input type="text" id="mitgliedsnummer" placeholder="Mitgliedsnummer" required />
+      <input type="text" id="funktion" placeholder="Funktion" required />
+      <input type="text" id="status" placeholder="Status" required />
+      <input type="date" id="geburtstag" required />
+      <textarea id="rechte" placeholder="Rechte" required></textarea>
+      <button type="submit">Profil anlegen</button>
+    </form>
+    <p id="feedback"></p>
+  </div>
+
+  <script>
+    function createProfile() {
+      const profile = {
+        name: document.getElementById("name").value,
+        mitgliedsnummer: document.getElementById("mitgliedsnummer").value,
+        funktion: document.getElementById("funktion").value,
+        status: document.getElementById("status").value,
+        geburtstag: document.getElementById("geburtstag").value,
+        rechte: document.getElementById("rechte").value,
+      };
+
+      // Simuliert Speicherung (z.B. später in JSON-Datei oder lokal)
+      console.log("Profil erstellt:", profile);
+      document.getElementById("feedback").textContent = "Profil erfolgreich erstellt!";
+    }
+  </script>
+</body>
+</html>
