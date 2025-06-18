@@ -5,15 +5,167 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feierabendhood</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background-color: #111;
+      color: #d9903f;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .logo-container {
+      margin-bottom: 20px;
+    }
+    .logo {
+      max-width: 200px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .intro-video {
+      max-width: 400px;
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    #login-container {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      box-sizing: border-box;
+      box-shadow: 0 0 10px #d9903f88;
+    }
+    #login-container label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    #login-container input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+    #togglePassword {
+      margin-bottom: 10px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #d9903f;
+      font-weight: bold;
+    }
+    #login-container button {
+      width: 100%;
+      background-color: #d9903f;
+      color: #111;
+      font-weight: bold;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #login-message {
+      margin-top: 10px;
+      min-height: 20px;
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
   <div class="logo-container">
     <img src="bilder/logo.png" alt="Logo" class="logo" />
   </div>
-  <video autoplay muted class="intro-video">
+
+  <video autoplay muted playsinline class="intro-video" id="introVideo">
     <source src="videos/intro.mov" type="video/mp4" />
     Dein Browser unterstützt kein Video.
   </video>
-  <script src="script.js"></script>
+
+  <div id="login-container">
+    <label for="password">Passwort eingeben</label>
+    <input type="password" id="password" placeholder="Passwort" />
+    <button id="togglePassword">Passwort anzeigen</button>
+    <button id="loginButton">Login</button>
+    <div id="login-message"></div>
+  </div>
+
+  <script>
+    const introVideo = document.getElementById('introVideo');
+    const loginContainer = document.getElementById('login-container');
+    const passwordInput = document.getElementById('password');
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const loginButton = document.getElementById('loginButton');
+    const loginMessage = document.getElementById('login-message');
+
+    // Video nach 9 Sekunden ausblenden, Login anzeigen
+    introVideo.addEventListener('ended', () => {
+      introVideo.style.transition = 'opacity 1s ease';
+      introVideo.style.opacity = 0;
+      setTimeout(() => {
+        introVideo.style.display = 'none';
+        loginContainer.style.display = 'block';
+      }, 1000);
+    });
+
+    // Falls Video nicht geladen wird, direkt Login anzeigen
+    setTimeout(() => {
+      if (!introVideo.paused) {
+        introVideo.pause();
+        introVideo.style.display = 'none';
+        loginContainer.style.display = 'block';
+      }
+    }, 10000); // 10 Sekunden max fallback
+
+    // Passwort anzeigen/ausblenden
+    togglePasswordBtn.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        togglePasswordBtn.textContent = 'Passwort verbergen';
+      } else {
+        passwordInput.type = 'password';
+        togglePasswordBtn.textContent = 'Passwort anzeigen';
+      }
+    });
+
+    // Einfaches Login (Passwort lokal gespeichert und geprüft)
+    loginButton.addEventListener('click', () => {
+      const pw = passwordInput.value.trim();
+      if (!pw) {
+        loginMessage.textContent = 'Bitte Passwort eingeben.';
+        return;
+      }
+
+      // Beispiel: Passwort ist "geheim123"
+      // Du kannst hier auch lokalStorage nutzen, wenn du willst.
+      const storedPw = localStorage.getItem('feierabendhoodPassword') || 'geheim123';
+
+      if (pw === storedPw) {
+        loginMessage.style.color = '#d9903f';
+        loginMessage.textContent = 'Login erfolgreich!';
+
+        // Nach Login hier weiterleiten oder Profil anzeigen
+        // Beispiel: window.location.href = 'profile.html';
+        setTimeout(() => {
+          loginMessage.textContent = '';
+          // TODO: Profilseite zeigen oder weiterleiten
+          alert('Hier Profilseite laden (später implementieren)');
+        }, 1000);
+      } else {
+        loginMessage.style.color = 'red';
+        loginMessage.textContent = 'Falsches Passwort!';
+      }
+    });
+
+    // Login Container initial verstecken, erst Video läuft
+    loginContainer.style.display = 'none';
+  </script>
 </body>
 </html>
