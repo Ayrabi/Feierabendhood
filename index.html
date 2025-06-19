@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Feierabendhood</title>
+  <title>Feierabendhood Login</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -11,43 +11,31 @@
     <img src="bilder/logo.png" alt="Logo" class="logo" />
   </div>
 
-  <video autoplay muted class="intro-video">
+  <video autoplay muted class="intro-video" style="display: none;">
     <source src="videos/intro.mov" type="video/mp4" />
     Dein Browser unterstützt kein Video.
   </video>
 
-  <div class="login-box">
+  <div class="login-container" id="loginForm">
     <h2>Login</h2>
-    <label for="mitglied">Mitgliedsnummer wählen:</label>
-    <select id="mitglied">
-      <option value="001">001</option>
-      <option value="002">002</option>
-      <option value="003">003</option>
-      <option value="004">004</option>
-      <option value="005">005</option>
-      <option value="006">006</option>
-    </select>
+    <form>
+      <label for="mitgliedsnummer">Mitgliedsnummer:</label>
+      <select id="mitgliedsnummer" required>
+        <option value="" disabled selected>Wählen...</option>
+        <option value="001">001</option>
+        <option value="002">002</option>
+        <option value="003">003</option>
+        <option value="004">004</option>
+        <option value="005">005</option>
+        <option value="006">006</option>
+      </select>
 
-    <br><br>
-    <label for="passwort">Passwort:</label>
-    <input type="password" id="passwort" />
+      <label for="passwort">Passwort:</label>
+      <input type="password" id="passwort" required />
 
-    <br><br>
-    <button onclick="einloggen()">Einloggen</button>
+      <button type="submit">Einloggen</button>
+    </form>
   </div>
-
-  <script>
-    function einloggen() {
-      const uid = document.getElementById("mitglied").value;
-      const pw = document.getElementById("passwort").value;
-
-      // Speichere Passwort im localStorage
-      localStorage.setItem("pw-" + uid, pw);
-
-      // Weiterleitung zur jeweiligen Profilseite
-      window.location.href = "profile-" + uid + ".html";
-    }
-  </script>
 
   <script src="script.js"></script>
 </body>
