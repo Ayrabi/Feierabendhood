@@ -5,6 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feierabendhood</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background-color: #111;
+      color: #d9903f;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .logo-container img {
+      max-width: 300px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .intro-video {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      border-radius: 10px;
+    }
+
+    .mitglieds-liste {
+      list-style: none;
+      padding: 0;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .mitglieds-liste li {
+      margin: 10px 0;
+    }
+
+    .mitglieds-liste a {
+      display: block;
+      padding: 10px;
+      background-color: #222;
+      color: #f2aa4c;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .mitglieds-liste a:hover {
+      background-color: #333;
+    }
+  </style>
 </head>
 <body>
   <div class="logo-container">
@@ -16,37 +63,18 @@
     Dein Browser unterstützt kein Video.
   </video>
 
-  <div class="login-container">
-    <h2>Login</h2>
-    <select id="username">
-      <option value="" disabled selected>Mitgliedsnummer auswählen</option>
-      <option value="001">001</option>
-      <option value="002">002</option>
-      <!-- Mehr Mitglieder hier -->
-    </select>
-    <input type="password" id="password" placeholder="Passwort" />
-    <button onclick="login()">Einloggen</button>
-    <p id="login-error" style="color: red;"></p>
-  </div>
+  <h2>Willkommen in der Feierabendhood</h2>
+  <p>Bitte wähle deine Mitgliedsnummer:</p>
 
-  <script>
-    function login() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value.trim();
+  <ul class="mitglieds-liste">
+    <li><a href="profile-001.html">001</a></li>
+    <li><a href="profile-002.html">002</a></li>
+    <li><a href="profile-003.html">003</a></li>
+    <li><a href="profile-004.html">004</a></li>
+    <li><a href="profile-005.html">005</a></li>
+    <li><a href="profile-006.html">006</a></li>
+  </ul>
 
-      if (
-        (user === "001" && pass === "feierabend123") ||
-        (user === "002" && pass === "beispiel456")
-      ) {
-        localStorage.setItem("loggedInUser", user);
-
-        if (user === "001") window.location.href = "profile-rabia.html";
-        else if (user === "002") window.location.href = "profile-ali.html";
-        else window.location.href = "profile-default.html";
-      } else {
-        document.getElementById("login-error").textContent = "Falsche Mitgliedsnummer oder Passwort";
-      }
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
