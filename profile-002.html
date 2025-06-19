@@ -2,98 +2,57 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Profil 002 - Feierabendhood</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mitglied 002</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    body {
-      background-color: #111;
-      color: #d9903f;
-      font-family: 'Comic Sans MS', cursive, sans-serif; /* Cartoonhafte Schrift */
-      margin: 20px;
-    }
-    .profile-container {
-      max-width: 700px;
-      margin: auto;
-      background-color: #222;
-      border-radius: 10px;
-      padding: 20px;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .btn-back {
-      background-color: #d9903f;
-      border: none;
-      color: #111;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    .profile-main {
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
-      flex-wrap: wrap;
-    }
-    .profile-image {
-      flex-shrink: 0;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 2px solid #d9903f;
-      object-fit: cover;
-      background: url('default-profile.png') center center no-repeat;
-      background-size: cover;
-    }
-    .profile-info {
-      flex: 1;
-      min-width: 250px;
-    }
-    .profile-info p {
-      margin: 6px 0;
-      font-size: 1.1rem;
-    }
-    .status-text {
-      margin-top: 20px;
-      background-color: #333;
-      border-radius: 8px;
-      padding: 10px;
-      font-style: italic;
-      min-height: 50px;
-    }
-  </style>
 </head>
 <body>
-
-  <div class="profile-container">
-    <div class="header">
-      <a href="members.html" class="btn-back">← Andere Mitglieder</a>
-      <h1>Profil 002</h1>
-    </div>
-
-    <div class="profile-main">
-      <img src="default-profile.png" alt="Profilbild" class="profile-image" />
-
-      <div class="profile-info">
-        <p><strong>Name:</strong> Ali Veli</p>
-        <p><strong>Mitgliedsnummer:</strong> 002</p>
-        <p><strong>Funktion:</strong> Moderator</p>
-        <p><strong>Status:</strong> Feierabend-Profi</p>
-        <p><strong>Geburtsdatum:</strong> 20.04.1995</p>
-        <p><strong>Rechte:</strong> Kann Beiträge verwalten und Mitglieder moderieren.</p>
-      </div>
-    </div>
-
-    <div class="status-text">
-      Status: Heute fühle ich mich super produktiv!
-    </div>
+  <div class="navbar">
+    <a href="mitglieder.html">Alle Mitglieder</a>
+    <a href="einstellungen.html">Einstellungen</a>
   </div>
 
+  <div class="profil-container">
+    <img src="bilder/default-profile.png" class="profilbild" alt="Profilbild" />
+    <div class="profil-info">
+      <h2>İlayda Aydemir</h2>
+      <p><strong>Mitgliedsnummer:</strong> 002</p>
+      <p><strong>Funktion:</strong> Ko-Kuratorin</p>
+      <p><strong>Status:</strong> Feierabend-Rookie</p>
+      <p><strong>Geburtsdatum:</strong> 14.10.2000</p>
+      <p><strong>Rechte:</strong> Darf mit Ankündigung im Vorab eine Begleitung zu den Treffen mitbringen.</p>
+    </div>
+    <textarea id="statusText" placeholder="Dein aktueller Status..."></textarea>
+    <button onclick="saveStatus()">Status speichern</button>
+    <p id="statusMsg"></p>
+  </div>
+
+  <script>
+    const uid = "002";
+    const defaultPassword = "noMoney#2019";
+    let currentPassword = localStorage.getItem("pw_" + uid);
+
+    if (!currentPassword) {
+      const userInput = prompt("Bitte vergib ein neues Passwort:");
+      if (userInput && userInput === defaultPassword) {
+        localStorage.setItem("pw_" + uid, userInput);
+        alert("Passwort gesetzt!");
+      } else {
+        alert("Falsches Standardpasswort.");
+        window.location.href = "index.html";
+      }
+    }
+
+    function saveStatus() {
+      const text = document.getElementById("statusText").value;
+      localStorage.setItem("status_" + uid, text);
+      document.getElementById("statusMsg").innerText = "Status gespeichert!";
+    }
+
+    window.onload = () => {
+      const saved = localStorage.getItem("status_" + uid);
+      if (saved) document.getElementById("statusText").value = saved;
+    };
+  </script>
 </body>
 </html>
