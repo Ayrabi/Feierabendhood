@@ -1,35 +1,42 @@
-const userDatabase = {
-  "rabia": {
-    name: "Rabia Aydemir",
-    password: "kuratorin2000",
-    profilePage: "profile-rabia.html"
-  },
-  "ali": {
-    name: "Ali Test",
-    password: "feierabend123",
-    profilePage: "profile-ali.html"
-  }
+// Mitglieder-Daten (nur für Login-Zwecke, keine echte Sicherheit!)
+const mitglieder = {
+  "001": { name: "Rabia Aydemir", passwort: "adminpass" },
+  "002": { name: "İlayda Aydemir", passwort: "noMoney#2019" },
+  "003": { name: "Zehra Doğan", passwort: "noMoney#2019" },
+  "004": { name: "Elif Çiğerli", passwort: "noMoney#2019" },
+  "005": { name: "Lea Peitan", passwort: "noMoney#2019" },
+  "006": { name: "Elvan Alanbay", passwort: "noMoney#2019" },
 };
 
-document.getElementById("loginButton").addEventListener("click", () => {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
-  const message = document.getElementById("login-message");
+// Wird auf der Profilseite aufgerufen (z. B. profile-002.html)
+function loginMitglied(uid) {
+  const gespeichertesPasswort = localStorage.getItem("pw-" + uid);
+  const erwartet = mitglieder[uid]?.passwort;
 
-  if (!username || !password) {
-    message.textContent = "Bitte wähle einen Nutzer und gib ein Passwort ein.";
-    return;
-  }
-
-  const user = userDatabase[username];
-  if (user && password === user.password) {
-    message.style.color = "green";
-    message.textContent = "Login erfolgreich!";
-    setTimeout(() => {
-      window.location.href = user.profilePage;
-    }, 1000);
+  if (gespeichertesPasswort === erwartet) {
+    document.getElementById("profil-inhalt").style.display = "block";
+    document.getElementById("login-formular").style.display = "none";
   } else {
-    message.style.color = "red";
-    message.textContent = "Falsches Passwort.";
+    document.getElementById("profil-inhalt").style.display = "none";
+    document.getElementById("login-formular").style.display = "block";
   }
-});
+}
+
+// Wenn Login-Formular abgeschickt wird
+function loginSenden(uid) {
+  const eingabe = document.getElementById("pw-eingabe").value;
+  const erwartet = mitglieder[uid]?.passwort;
+
+  if (eingabe === erwartet) {
+    localStorage.setItem("pw-" + uid, eingabe);
+    location.reload();
+  } else {
+    alert("Falsches Passwort.");
+  }
+}
+
+// Ausloggen
+function logout(uid) {
+  localStorage.removeItem("pw-" + uid);
+  location.reload();
+}
