@@ -1,42 +1,65 @@
-// Mitglieder-Daten (nur für Login-Zwecke, keine echte Sicherheit!)
-const mitglieder = {
-  "001": { name: "Rabia Aydemir", passwort: "adminpass" },
-  "002": { name: "İlayda Aydemir", passwort: "noMoney#2019" },
-  "003": { name: "Zehra Doğan", passwort: "noMoney#2019" },
-  "004": { name: "Elif Çiğerli", passwort: "noMoney#2019" },
-  "005": { name: "Lea Peitan", passwort: "noMoney#2019" },
-  "006": { name: "Elvan Alanbay", passwort: "noMoney#2019" },
-};
+document.addEventListener("DOMContentLoaded", function () {
+  const storedUser = localStorage.getItem("user");
+  const video = document.querySelector(".intro-video");
 
-// Wird auf der Profilseite aufgerufen (z. B. profile-002.html)
-function loginMitglied(uid) {
-  const gespeichertesPasswort = localStorage.getItem("pw-" + uid);
-  const erwartet = mitglieder[uid]?.passwort;
+  if (storedUser) {
+    // Wenn bereits eingeloggt, direkt weiterleiten nach dem Video
+    if (video) {
+      video.addEventListener("ended", () => {
+        redirectToProfile();
+      });
 
-  if (gespeichertesPasswort === erwartet) {
-    document.getElementById("profil-inhalt").style.display = "block";
-    document.getElementById("login-formular").style.display = "none";
-  } else {
-    document.getElementById("profil-inhalt").style.display = "none";
-    document.getElementById("login-formular").style.display = "block";
+      // Falls Video nicht richtig endet, trotzdem nach 9 Sekunden weiterleiten
+      setTimeout(redirectToProfile, 9000);
+    } else {
+      redirectToProfile();
+    }
   }
-}
 
-// Wenn Login-Formular abgeschickt wird
-function loginSenden(uid) {
-  const eingabe = document.getElementById("pw-eingabe").value;
-  const erwartet = mitglieder[uid]?.passwort;
+  // Login-Button aktivieren
+  const loginForm = document.getElementById("loginForm");
+  if (loginForm) {
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-  if (eingabe === erwartet) {
-    localStorage.setItem("pw-" + uid, eingabe);
-    location.reload();
-  } else {
-    alert("Falsches Passwort.");
+      const uid = document.getElementById("mitgliedsnummer").value;
+      const password = document.getElementById("passwort").value;
+
+      const knownUsers = {
+        "001": "noMoney#2019",
+        "002": "noMoney#2019",
+        "003": "noMoney#2019",
+        "004": "noMoney#2019",
+        "005": "noMoney#2019",
+        "006": "noMoney#2019"
+      };
+
+      if (knownUsers[uid] && knownUsers[uid] === password) {
+        localStorage.setItem("user", uid);
+
+        if (video) {
+          video.style.display = "block";
+          loginForm.style.display = "none";
+
+          video.addEventListener("ended", () => {
+            redirectToProfile();
+          });
+
+          // Sicherheitshalber Timeout-Fallback
+          setTimeout(redirectToProfile, 9000);
+        } else {
+          redirectToProfile();
+        }
+      } else {
+        alert("Falsche Mitgliedsnummer oder Passwort.");
+      }
+    });
   }
-}
 
-// Ausloggen
-function logout(uid) {
-  localStorage.removeItem("pw-" + uid);
-  location.reload();
-}
+  function redirectToProfile() {
+    const uid = localStorage.getItem("user");
+    if (uid) {
+      window.location.href = `profile-${uid}.html`;
+    }
+  }
+});
