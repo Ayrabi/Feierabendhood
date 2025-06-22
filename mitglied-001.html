@@ -3,24 +3,175 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mitglied 001</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Profil – Rabia Aydemir</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 400px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .profile-pic {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1rem;
+    }
+
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ccc;
+    }
+
+    .edit-image-btn {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #00000099;
+      color: white;
+      font-size: 0.8rem;
+      padding: 4px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .profile-pic:hover .edit-image-btn {
+      display: block;
+    }
+
+    .info-line {
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      color: #333;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .notiz {
+      background: #f0f0f0;
+      padding: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+
+    .edit-controls {
+      display: none;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <div class="topbar">
-    <a href="mitglieder.html">Andere Mitglieder</a>
-    <a href="einstellungen.html">Einstellungen</a>
-    <a href="admin-panel.html">Admin Panel</a>
+  <div class="profile-card">
+    <div class="profile-pic" onclick="triggerImageEdit()">
+      <img id="profileImage" src="default-profile.png" alt="Profilbild" />
+      <div class="edit-image-btn">Bearbeiten</div>
+      <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)" />
+    </div>
+
+    <h2>Rabia Aydemir</h2>
+
+    <div class="info-line">
+      <span>001</span>
+      <span>14.10.2000</span>
+      <span>Feierabend rookie</span>
+    </div>
+
+    <div class="notiz" onclick="enableNoteEdit()">
+      <div id="notizText">Hier klicken, um eine Notiz hinzuzufügen</div>
+      <div class="edit-controls" id="noteEditControls">
+        <textarea id="notizInput"></textarea>
+        <button onclick="saveNote()">Speichern</button>
+      </div>
+    </div>
   </div>
 
-  <div class="profil-container">
-    <img src="bilder/default-profile.png" alt="Profilbild" class="profilbild" />
-    <h2>Rabia Aydemir</h2>
-    <p><strong>Mitgliedsnummer:</strong> 001</p>
-    <p><strong>Funktion:</strong> Kuratorin</p>
-    <p><strong>Status:</strong> Feierabend-Rookie</p>
-    <p><strong>Geburtsdatum:</strong> 14.10.2000</p>
-    <p><strong>Rechte:</strong> Organisatorisches und gruppenbetreffend. Darf mit Ankündigung im Vorab eine Begleitung zu den Treffen mitbringen.</p>
-  </div>
+  <script>
+    const notizText = document.getElementById('notizText');
+    const noteEditControls = document.getElementById('noteEditControls');
+    const notizInput = document.getElementById('notizInput');
+
+    function enableNoteEdit() {
+      notizInput.value = notizText.textContent.trim();
+      notizText.style.display = 'none';
+      noteEditControls.style.display = 'flex';
+    }
+
+    function saveNote() {
+      notizText.textContent = notizInput.value;
+      notizText.style.display = 'block';
+      noteEditControls.style.display = 'none';
+      localStorage.setItem('notiz001', notizInput.value);
+    }
+
+    function loadNote() {
+      const saved = localStorage.getItem('notiz001');
+      if (saved) {
+        notizText.textContent = saved;
+      }
+    }
+
+    function triggerImageEdit() {
+      document.getElementById('fileInput').click();
+    }
+
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const img = document.getElementById('profileImage');
+        img.src = reader.result;
+        localStorage.setItem('image001', reader.result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function loadImage() {
+      const saved = localStorage.getItem('image001');
+      if (saved) {
+        document.getElementById('profileImage').src = saved;
+      }
+    }
+
+    loadNote();
+    loadImage();
+  </script>
 </body>
 </html>
